@@ -3,11 +3,9 @@ import warnings
 import pandas as pd
 from flask import Flask, render_template, request
 from flask_cors import cross_origin
-import logging
 import timeit
 
 
-logging.basicConfig(filename='record1.log', level=logging.DEBUG, format='%(asctime)s_%(levelname)s-%(message)s')
 
 app = Flask(__name__)
 model = joblib.load('best.pkl')
@@ -18,14 +16,14 @@ warnings.filterwarnings('ignore')
 @app.route("/home")
 @cross_origin()
 def home():
-    app.logger.info('Home')
+    print('Home')
     return render_template('home.html')
 
 
 @app.route("/enter", methods=['POST', 'GET'])
 @cross_origin()
 def enter():
-    app.logger.info('Entering the details')
+    print('Entering the details')
     return render_template('enter.html')
 
 
@@ -44,7 +42,7 @@ additional = {'No info': 8, 'In-flight meal not included': 5, 'No check-in bagga
 @app.route("/predict", methods=['GET', 'POST'])
 @cross_origin()
 def predict():
-    app.logger.info('predicting the fare')
+    print('predicting the fare')
     start = timeit.timeit()
     if request.method == "POST":
         airline_name = request.form["airline"]
@@ -93,7 +91,7 @@ def predict():
                                      Du_minutes
                                  ]])
         output = round(prediction[0], 2)
-        app.logger.info('finished predicting')
+        print('finished predicting')
         end = timeit.timeit()
         time_taken = (start - end)
         source_file = open('time_taken.txt', 'a')
