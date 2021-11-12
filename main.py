@@ -43,7 +43,6 @@ additional = {'No info': 8, 'In-flight meal not included': 5, 'No check-in bagga
 @cross_origin()
 def predict():
     print('predicting the fare')
-    start = timeit.timeit()
     if request.method == "POST":
         airline_name = request.form["airline"]
         Airline = airlines[airline_name]
@@ -92,11 +91,7 @@ def predict():
                                  ]])
         output = round(prediction[0], 2)
         print('finished predicting')
-        end = timeit.timeit()
-        time_taken = (start - end)
-        source_file = open('time_taken.txt', 'a')
-        print(time_taken, file=source_file)
-        source_file.close()
+       
         return render_template('output.html', prediction_text="Your Flight fare is Rs. {}".format(output))
     return render_template("home.html")
 
