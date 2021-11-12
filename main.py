@@ -7,7 +7,7 @@ import logging
 import timeit
 
 
-logging.basicConfig(filename='record.log', level=logging.DEBUG, format='%(asctime)s_%(levelname)s-%(message)s')
+logging.basicConfig(filename='record1.log', level=logging.DEBUG, format='%(asctime)s_%(levelname)s-%(message)s')
 
 app = Flask(__name__)
 model = joblib.load('best.pkl')
